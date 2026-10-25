@@ -1,0 +1,183 @@
+/* =====================================================================
+   LUNCH SPY · DESIGN TOKENS
+   The whole look lives here. Re-theme by editing these values or by
+   setting <html data-theme="nokia"> / <html data-theme="bitmap">.
+   ===================================================================== */
+
+:root {
+  /* ---- raw palette ---- */
+  --c-gray: #c0c0c0;
+  --c-navy: #000080;
+  --c-black: #0a0a0a;
+  --c-offwhite: #f2f2f2;
+  --c-lcd-1: #9bbc0f;   /* lightest LCD green */
+  --c-lcd-2: #8bac0f;
+  --c-lcd-3: #306230;
+  --c-lcd-4: #0f380f;   /* darkest LCD green */
+  --c-olive: #2f3e2a;
+  --c-orange: #ff4a1c;
+  --c-sky: #4a7ab8;
+  --c-grass: #3d7a2a;
+  --c-red: #d4141c;
+  --c-tooltip: #ffffe1;
+
+  /* ---- window chrome (Win95 bevels: outer light/dark + inner highlight/shadow) ---- */
+  --win-face: var(--c-gray);
+  --win-light: #ffffff;
+  --win-highlight: #dfdfdf;
+  --win-shadow: #808080;
+  --win-dark: var(--c-black);
+  --win-text: var(--c-black);
+  --title-a: var(--c-navy);
+  --title-b: #1084d0;
+  --title-fg: #ffffff;
+  --title-off-a: #808080;
+  --title-off-b: #b5b5b5;
+  --field-bg: #ffffff;
+  --field-fg: var(--c-black);
+  --select-bg: var(--c-navy);
+  --select-fg: #ffffff;
+  --tooltip-bg: var(--c-tooltip);
+  --tooltip-fg: var(--c-black);
+
+  /* ---- LCD readouts (Snake '95 style) ---- */
+  --lcd-bg: #08130a;
+  --lcd-fg: #7dff4a;
+  --lcd-ghost: rgba(125, 255, 74, 0.13);
+  --lcd-glow: 0 0 6px rgba(125, 255, 74, 0.7);
+
+  /* ---- Nokia screen (used by role reveal + nokia theme) ---- */
+  --nk-1: var(--c-lcd-1);
+  --nk-2: var(--c-lcd-2);
+  --nk-3: var(--c-lcd-3);
+  --nk-4: var(--c-lcd-4);
+
+  /* ---- pills ---- */
+  --pill-bg: var(--c-offwhite);
+  --pill-fg: var(--c-black);
+  --pill-border: var(--c-black);
+
+  /* ---- accents ---- */
+  --accent: var(--c-orange);
+  --danger: var(--c-red);
+  --good: #008000;
+  --spy: var(--c-red);
+  --sticker-1: #ffffff;
+  --sticker-2: var(--c-orange);
+
+  /* ---- desktop backdrop: Windows XP "Bliss", banded + dithered ---- */
+  --desk:
+    radial-gradient(140% 60% at 30% 108%, var(--c-grass) 0 52%, #2f6420 52% 56%, transparent 56%),
+    radial-gradient(120% 50% at 90% 112%, #4c8f33 0 50%, transparent 50%),
+    linear-gradient(180deg, #2f5f9e 0 18%, #3b6dac 18% 36%, var(--c-sky) 36% 54%, #6b96cc 54% 70%, #9bbbe0 70% 100%);
+  --dither-ink: rgba(0, 0, 0, 0.16);
+
+  /* ---- in-game world (canvas) look per theme ---- */
+  --world-filter: none;
+  --icon-filter: none;
+  --nk-filter: grayscale(1) contrast(1.6) sepia(1) hue-rotate(38deg) saturate(2) brightness(.55);
+  --world-bg: #10182a;
+
+  /* ---- type ---- */
+  --f-ui: 'Pixelify Sans', 'Silkscreen', ui-monospace, monospace;
+  --f-lcd: 'VT323', ui-monospace, monospace;
+  --f-cap: 'Silkscreen', ui-monospace, monospace;
+  --f-serif: 'Instrument Serif', 'Times New Roman', Georgia, serif;
+  --fs-cap: 10px;
+  --fs-ui: 15px;
+  --fs-title: 13px;
+
+  /* ---- sizing ---- */
+  --bv: 2px;          /* bevel thickness unit */
+  --tap: 44px;        /* minimum touch target */
+  --title-h: 26px;
+  --gutter: 16px;
+
+  /* ---- effects (strength 0..1) ---- */
+  --fx-grain: 0.11;
+  --fx-scan: 0.13;
+  --fx-vignette: 0.45;
+}
+
+/* ===== Nokia LCD theme ===== */
+:root[data-theme="nokia"] {
+  --win-face: var(--c-lcd-2);
+  --win-light: #c6e25c;
+  --win-highlight: var(--c-lcd-1);
+  --win-shadow: var(--c-lcd-3);
+  --win-dark: var(--c-lcd-4);
+  --win-text: var(--c-lcd-4);
+  --title-a: var(--c-lcd-4);
+  --title-b: var(--c-lcd-3);
+  --title-fg: var(--c-lcd-1);
+  --title-off-a: var(--c-lcd-3);
+  --title-off-b: var(--c-lcd-3);
+  --field-bg: var(--c-lcd-1);
+  --field-fg: var(--c-lcd-4);
+  --select-bg: var(--c-lcd-4);
+  --select-fg: var(--c-lcd-1);
+  --tooltip-bg: var(--c-lcd-1);
+  --tooltip-fg: var(--c-lcd-4);
+  --lcd-bg: var(--c-lcd-4);
+  --lcd-fg: var(--c-lcd-1);
+  --lcd-ghost: rgba(155, 188, 15, 0.14);
+  --lcd-glow: none;
+  --pill-bg: var(--c-lcd-1);
+  --pill-fg: var(--c-lcd-4);
+  --pill-border: var(--c-lcd-4);
+  --accent: var(--c-lcd-4);
+  --danger: var(--c-lcd-4);
+  --good: var(--c-lcd-4);
+  --spy: var(--c-lcd-4);
+  --sticker-1: var(--c-lcd-1);
+  --sticker-2: var(--c-lcd-2);
+  --desk: linear-gradient(180deg, #3a4b33 0 30%, var(--c-olive) 30% 70%, #26331f 70% 100%);
+  --dither-ink: rgba(155, 188, 15, 0.08);
+  --world-filter: grayscale(1) contrast(1.25) sepia(1) hue-rotate(38deg) saturate(2.4) brightness(0.82);
+  --icon-filter: grayscale(1) contrast(1.25) sepia(1) hue-rotate(38deg) saturate(2.4) brightness(0.7);
+  --world-bg: var(--c-lcd-4);
+}
+
+/* ===== Bitmap collection theme: hot orange on black ===== */
+:root[data-theme="bitmap"] {
+  --win-face: var(--c-black);
+  --win-light: var(--c-orange);
+  --win-highlight: #6b1e0b;
+  --win-shadow: #6b1e0b;
+  --win-dark: var(--c-orange);
+  --win-text: var(--c-orange);
+  --title-a: var(--c-orange);
+  --title-b: var(--c-orange);
+  --title-fg: var(--c-black);
+  --title-off-a: #6b1e0b;
+  --title-off-b: #6b1e0b;
+  --field-bg: #000000;
+  --field-fg: var(--c-orange);
+  --select-bg: var(--c-orange);
+  --select-fg: #000000;
+  --tooltip-bg: #000000;
+  --tooltip-fg: var(--c-orange);
+  --lcd-bg: #000000;
+  --lcd-fg: var(--c-orange);
+  --lcd-ghost: rgba(255, 74, 28, 0.14);
+  --lcd-glow: 0 0 6px rgba(255, 74, 28, 0.75);
+  --pill-bg: #000000;
+  --pill-fg: var(--c-orange);
+  --pill-border: var(--c-orange);
+  --accent: var(--c-orange);
+  --danger: var(--c-orange);
+  --good: var(--c-orange);
+  --spy: var(--c-orange);
+  --sticker-1: var(--c-orange);
+  --sticker-2: var(--c-orange);
+  --desk: radial-gradient(circle at 50% 50%, rgba(255, 74, 28, 0.35) 0 1.2px, transparent 1.6px) 0 0 / 7px 7px, #000;
+  --dither-ink: rgba(255, 74, 28, 0.05);
+  --world-filter: invert(1) grayscale(1) contrast(1.7) brightness(0.8) sepia(1) saturate(7) hue-rotate(-30deg);
+  --world-bg: #000000;
+  --icon-filter: grayscale(1) contrast(1.5) brightness(0.95) sepia(1) saturate(6) hue-rotate(-28deg);
+  --nk-1: var(--c-orange);
+  --nk-2: #c23810;
+  --nk-3: #6b1e0b;
+  --nk-4: #000000;
+  --nk-filter: grayscale(1) contrast(1.6) brightness(0.25);
+}

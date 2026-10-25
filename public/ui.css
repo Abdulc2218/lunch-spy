@@ -1,0 +1,289 @@
+/* =====================================================================
+   LUNCH SPY · UI COMPONENTS
+   Everything reads from tokens.css. No images: bevels are box-shadows.
+   ===================================================================== */
+
+/* ---------- bevel recipes ---------- */
+.bevel-up, .win, .btn95, .tile, .menu, .taskbar, .dpad-btn {
+  box-shadow:
+    inset calc(-1 * var(--bv) / 2) calc(-1 * var(--bv) / 2) 0 0 var(--win-dark),
+    inset calc(var(--bv) / 2) calc(var(--bv) / 2) 0 0 var(--win-light),
+    inset calc(-1 * var(--bv)) calc(-1 * var(--bv)) 0 0 var(--win-shadow),
+    inset var(--bv) var(--bv) 0 0 var(--win-highlight);
+}
+.bevel-in, .field, .sunken, .lcd, .seg-bar, .progress95, .listview, .tile.sel, .btn95.on {
+  box-shadow:
+    inset calc(var(--bv) / 2) calc(var(--bv) / 2) 0 0 var(--win-shadow),
+    inset calc(-1 * var(--bv) / 2) calc(-1 * var(--bv) / 2) 0 0 var(--win-light),
+    inset var(--bv) var(--bv) 0 0 var(--win-dark),
+    inset calc(-1 * var(--bv)) calc(-1 * var(--bv)) 0 0 var(--win-highlight);
+}
+
+/* ---------- Window ---------- */
+.win {
+  position: relative;
+  background: var(--win-face);
+  color: var(--win-text);
+  padding: calc(var(--bv) * 1.5 + 1px);
+  font-family: var(--f-ui);
+  font-size: var(--fs-ui);
+  animation: winOpen 0.18s steps(3, end);
+}
+.win-title {
+  display: flex; align-items: center; gap: 6px;
+  height: var(--title-h); padding: 0 3px 0 5px;
+  background: linear-gradient(90deg, var(--title-a), var(--title-b));
+  color: var(--title-fg);
+  font-family: var(--f-ui); font-weight: 700; font-size: var(--fs-title); letter-spacing: 0.04em;
+  user-select: none; -webkit-user-select: none; touch-action: none;
+}
+.win.inactive > .win-title { background: linear-gradient(90deg, var(--title-off-a), var(--title-off-b)); color: var(--win-face); }
+.win-title .ico { width: 16px; height: 16px; flex: none; image-rendering: pixelated; display: block; }
+.win-title .tt { flex: 1; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.win-title .tr { flex: none; font-family: var(--f-lcd); font-size: 18px; font-weight: 400; letter-spacing: 0.05em; }
+.win-ctrls { display: flex; gap: 2px; flex: none; }
+.win-ctrls button {
+  width: 22px; height: 20px; padding: 0; border: 0; display: grid; place-items: center;
+  background: var(--win-face); color: var(--win-text);
+  font-family: var(--f-cap); font-size: 11px; line-height: 1;
+}
+.win-ctrls button + button.x { margin-left: 2px; }
+.win-body { padding: 10px; }
+.win.sm { --title-h: 20px; --fs-title: 11px; }
+.win.sm .win-ctrls button { width: 18px; height: 16px; font-size: 9px; }
+.win.min > :not(.win-title) { display: none !important; }
+.win.max { position: fixed !important; inset: 0 0 var(--taskbar-h, 0) 0 !important; transform: none !important; z-index: 60; width: auto !important; max-width: none !important; }
+@media (pointer: coarse) {
+  .win-ctrls button { width: 30px; height: 24px; }
+  .win.sm .win-ctrls button { width: 24px; height: 18px; }
+}
+
+.win-menu { display: flex; gap: 2px; padding: 2px 2px 4px; font-size: 14px; }
+.win-menu span { padding: 2px 7px; }
+.win-menu span::first-letter { text-decoration: underline; }
+.win-status { display: flex; gap: 3px; margin-top: 4px; font-size: 12px; }
+.win-status > * { padding: 3px 7px; }
+.win-status > :first-child { flex: 1; }
+
+/* ---------- Buttons ---------- */
+.btn95 {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: var(--tap); min-width: 88px; padding: 0 16px; border: 0;
+  background: var(--win-face); color: var(--win-text);
+  font-family: var(--f-ui); font-size: 16px; font-weight: 700;
+  cursor: pointer; touch-action: manipulation; position: relative;
+}
+.btn95:active:not(:disabled), .btn95.pressed {
+  box-shadow:
+    inset calc(var(--bv) / 2) calc(var(--bv) / 2) 0 0 var(--win-dark),
+    inset calc(-1 * var(--bv) / 2) calc(-1 * var(--bv) / 2) 0 0 var(--win-light),
+    inset var(--bv) var(--bv) 0 0 var(--win-shadow),
+    inset calc(-1 * var(--bv)) calc(-1 * var(--bv)) 0 0 var(--win-highlight);
+  padding-top: 2px; padding-left: 18px;
+}
+.btn95.default { outline: 1px solid var(--win-dark); outline-offset: -1px; }
+.btn95.default::after, .btn95:focus-visible::after {
+  content: ''; position: absolute; inset: 5px; border: 1px dotted var(--win-text); pointer-events: none;
+}
+.btn95.default:not(:focus-visible)::after { display: none; }
+.btn95:disabled { color: var(--win-shadow); text-shadow: 1px 1px 0 var(--win-light); cursor: default; }
+.btn95.wide { width: 100%; }
+.btn95.big { min-height: 54px; font-size: 19px; }
+.btn95.icon { min-width: var(--tap); padding: 0; }
+.btn95 .pix { width: 20px; height: 20px; }
+
+/* ---------- Fields ---------- */
+.field {
+  width: 100%; height: var(--tap); padding: 0 10px; border: 0; border-radius: 0;
+  background: var(--field-bg); color: var(--field-fg);
+  font-family: var(--f-ui); font-size: 18px; outline: none;
+  -webkit-appearance: none; appearance: none;
+}
+.field::placeholder { color: var(--win-shadow); }
+.field:focus { outline: 1px dotted var(--win-text); outline-offset: -5px; }
+.sunken { background: var(--field-bg); color: var(--field-fg); }
+fieldset.group {
+  border: 0; margin: 12px 0 0; padding: 14px 10px 10px; position: relative;
+  box-shadow: inset 1px 1px 0 var(--win-shadow), inset -1px -1px 0 var(--win-light), inset 2px 2px 0 var(--win-light), inset -2px -2px 0 var(--win-shadow);
+}
+fieldset.group > legend { position: absolute; top: -9px; left: 8px; padding: 0 4px; background: var(--win-face); font-size: 14px; }
+.label { display: block; font-size: 14px; margin: 10px 0 5px; }
+.label u { text-decoration: underline; }
+
+/* ---------- Checkbox / radio / slider ---------- */
+.check, .radio { display: flex; align-items: center; gap: 10px; min-height: var(--tap); cursor: pointer; font-size: 15px; }
+.check input, .radio input {
+  -webkit-appearance: none; appearance: none; margin: 0; flex: none;
+  width: 18px; height: 18px; background: var(--field-bg);
+  box-shadow:
+    inset 1px 1px 0 var(--win-shadow), inset -1px -1px 0 var(--win-light),
+    inset 2px 2px 0 var(--win-dark), inset -2px -2px 0 var(--win-highlight);
+  display: grid; place-items: center; cursor: pointer;
+}
+.check input:checked::after {
+  content: ''; width: 10px; height: 10px;
+  background: var(--field-fg);
+  clip-path: polygon(0 45%, 20% 45%, 40% 65%, 80% 10%, 100% 10%, 100% 30%, 40% 95%, 0 60%);
+}
+.radio input { border-radius: 50%; }
+.radio input:checked::after { content: ''; width: 6px; height: 6px; background: var(--field-fg); }
+.check input:focus-visible, .radio input:focus-visible { outline: 1px dotted var(--win-text); outline-offset: 3px; }
+
+.slider { display: flex; align-items: center; gap: 10px; min-height: var(--tap); }
+.slider small { font-family: var(--f-cap); font-size: var(--fs-cap); }
+input[type=range].range95 {
+  -webkit-appearance: none; appearance: none; flex: 1; height: 30px; background: transparent; margin: 0; cursor: pointer;
+}
+input[type=range].range95::-webkit-slider-runnable-track {
+  height: 4px; background: var(--win-face);
+  box-shadow: inset 1px 1px 0 var(--win-shadow), inset -1px -1px 0 var(--win-light), inset 2px 2px 0 var(--win-dark);
+}
+input[type=range].range95::-moz-range-track {
+  height: 4px; background: var(--win-face);
+  box-shadow: inset 1px 1px 0 var(--win-shadow), inset -1px -1px 0 var(--win-light), inset 2px 2px 0 var(--win-dark);
+}
+input[type=range].range95::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 26px; margin-top: -11px; background: var(--win-face); border: 0;
+  box-shadow: inset -1px -1px 0 var(--win-dark), inset 1px 1px 0 var(--win-light), inset -2px -2px 0 var(--win-shadow), inset 2px 2px 0 var(--win-highlight);
+}
+input[type=range].range95::-moz-range-thumb {
+  width: 14px; height: 26px; border: 0; border-radius: 0; background: var(--win-face);
+  box-shadow: inset -1px -1px 0 var(--win-dark), inset 1px 1px 0 var(--win-light), inset -2px -2px 0 var(--win-shadow), inset 2px 2px 0 var(--win-highlight);
+}
+
+/* ---------- LCD readouts ---------- */
+.lcd {
+  background: var(--lcd-bg); color: var(--lcd-fg);
+  font-family: var(--f-lcd); text-shadow: var(--lcd-glow);
+  padding: 3px 8px 2px; line-height: 1;
+  background-image: repeating-linear-gradient(0deg, rgba(0,0,0,.18) 0 1px, transparent 1px 3px);
+}
+.lcd-cell { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.lcd-cell .cap { color: var(--lcd-fg); opacity: 0.75; text-shadow: none; }
+.lcd-num { position: relative; display: inline-block; font-size: 30px; letter-spacing: 0.04em; }
+.lcd-num::before { content: attr(data-ghost); position: absolute; inset: 0; color: var(--lcd-ghost); text-shadow: none; }
+.lcd-num > span { position: relative; }
+
+.seg-bar { height: 16px; padding: 3px; background: var(--lcd-bg); position: relative; }
+.seg-bar > i {
+  display: block; height: 100%; width: 0;
+  background: repeating-linear-gradient(90deg, var(--lcd-fg) 0 7px, transparent 7px 9px);
+  filter: drop-shadow(0 0 3px var(--lcd-fg));
+}
+:root[data-theme="nokia"] .seg-bar > i { filter: none; }
+.seg-bar.ghost::before {
+  content: ''; position: absolute; inset: 3px;
+  background: repeating-linear-gradient(90deg, var(--lcd-ghost) 0 7px, transparent 7px 9px);
+}
+
+/* Win95 installer progress */
+.progress95 { height: 24px; padding: 3px; background: var(--field-bg); }
+.progress95 > i {
+  display: block; height: 100%; width: 0;
+  background: repeating-linear-gradient(90deg, var(--select-bg) 0 12px, transparent 12px 15px);
+}
+
+/* ---------- Pills + captions ---------- */
+.pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--pill-bg); color: var(--pill-fg);
+  border: 1.5px solid var(--pill-border); border-radius: 999px;
+  font-family: var(--f-serif); font-size: 20px; line-height: 1; padding: 5px 16px 6px;
+  white-space: nowrap;
+}
+.pill.xl { font-size: clamp(40px, 13vw, 76px); padding: 6px 26px 10px; letter-spacing: -0.01em; }
+.pill.sm { font-size: 15px; padding: 3px 11px 4px; }
+.pill.dark { background: var(--c-black); color: var(--pill-bg); border-color: var(--pill-bg); }
+.pill i { font-style: italic; }
+button.pill { cursor: pointer; min-height: var(--tap); }
+.cap { font-family: var(--f-cap); font-size: var(--fs-cap); letter-spacing: 0.22em; text-transform: uppercase; }
+.chroma { text-shadow: -2px 0 rgba(255, 0, 60, 0.55), 2px 0 rgba(0, 190, 255, 0.55); }
+html.crt-off .chroma { text-shadow: none; }
+
+/* ---------- List view (explorer) ---------- */
+.listview { background: var(--field-bg); color: var(--field-fg); padding: 4px; overflow-y: auto; }
+.listview .row { display: flex; align-items: center; gap: 8px; min-height: 36px; padding: 2px 6px; font-size: 15px; }
+.listview .row.sel { background: var(--select-bg); color: var(--select-fg); }
+.listview .row .nm { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.listview .row .meta { font-family: var(--f-cap); font-size: 9px; letter-spacing: 0.12em; }
+.listview .row canvas { width: 28px; height: 28px; flex: none; image-rendering: pixelated; }
+.listview .empty { padding: 10px; font-size: 14px; opacity: 0.7; }
+.mono { font-family: var(--f-lcd); font-size: 21px; line-height: 1.05; }
+
+/* ---------- Tiles (icon view buttons) ---------- */
+.tile {
+  border: 0; background: var(--win-face); color: var(--win-text); font-family: var(--f-ui);
+  display: flex; align-items: center; gap: 6px; padding: 4px 8px 4px 4px; min-height: 46px; text-align: left; cursor: pointer;
+}
+.tile.sel { background: var(--select-bg); color: var(--select-fg); }
+
+/* ---------- Menus ---------- */
+.menu {
+  position: fixed; z-index: 90; background: var(--win-face); color: var(--win-text);
+  padding: 3px; min-width: 190px; font-family: var(--f-ui); font-size: 15px;
+}
+.menu button {
+  display: flex; align-items: center; gap: 10px; width: 100%; min-height: 34px; padding: 0 20px 0 8px;
+  border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer;
+}
+.menu button:hover, .menu button:focus-visible { background: var(--select-bg); color: var(--select-fg); outline: none; }
+.menu hr { border: 0; height: 2px; margin: 3px 2px; box-shadow: inset 0 1px 0 var(--win-shadow), inset 0 -1px 0 var(--win-light); }
+.menu .pix { width: 20px; height: 20px; }
+@media (pointer: coarse) { .menu button { min-height: var(--tap); } }
+
+/* ---------- Tooltip (used for toasts) ---------- */
+.tooltip95 {
+  background: var(--tooltip-bg); color: var(--tooltip-fg); border: 1px solid var(--win-dark);
+  font-family: var(--f-ui); font-size: 14px; padding: 4px 8px; box-shadow: 2px 2px 0 rgba(0,0,0,.35);
+}
+
+/* ---------- Dialog layout ---------- */
+.dialog { display: flex; gap: 14px; align-items: flex-start; padding: 14px 12px 6px; }
+.dialog .dicon { width: 32px; height: 32px; flex: none; image-rendering: pixelated; }
+.dialog p { margin: 0 0 6px; line-height: 1.35; }
+.dialog-btns { display: flex; justify-content: center; gap: 8px; padding: 10px 6px 6px; flex-wrap: wrap; }
+
+/* ---------- Pixel sprites ---------- */
+.pix { display: block; image-rendering: pixelated; shape-rendering: crispEdges; }
+canvas.pixel, img.pixel { image-rendering: pixelated; image-rendering: crisp-edges; }
+
+/* ---------- Taskbar ---------- */
+.taskbar {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 40;
+  height: calc(40px + var(--safe-b, 0px)); padding: 4px 4px calc(4px + var(--safe-b, 0px));
+  display: flex; align-items: center; gap: 4px; background: var(--win-face);
+  box-shadow: inset 0 1px 0 var(--win-highlight), inset 0 2px 0 var(--win-light);
+}
+.start-btn { min-width: 0; min-height: 32px; padding: 0 10px 0 6px; font-size: 15px; }
+.task-chip { min-height: 32px; flex: 0 1 200px; min-width: 0; justify-content: flex-start; font-weight: 400; font-size: 13px; padding: 0 8px; overflow: hidden; white-space: nowrap; }
+.tray { margin-left: auto; display: flex; align-items: center; gap: 8px; height: 32px; padding: 0 10px; font-size: 14px; white-space: nowrap; flex: none; }
+.tray .pix { width: 16px; height: 16px; }
+
+/* ---------- Effects overlays ---------- */
+.fx { position: fixed; inset: 0; pointer-events: none; z-index: 1000; }
+.fx-grain {
+  opacity: var(--fx-grain);
+  background-image: var(--noise-url);
+  background-size: 180px 180px;
+  image-rendering: pixelated;
+  animation: grain 0.5s steps(1) infinite;
+}
+.fx-scan { background: repeating-linear-gradient(0deg, rgba(0,0,0,var(--fx-scan)) 0 1px, transparent 1px 3px); }
+.fx-vig { background: radial-gradient(120% 90% at 50% 50%, transparent 55%, rgba(0,0,0,var(--fx-vignette)) 100%); }
+html.crt-off .fx-scan, html.crt-off .fx-vig { display: none; }
+html.grain-off .fx-grain { display: none; }
+@keyframes grain {
+  0% { background-position: 0 0; } 20% { background-position: -47px 31px; } 40% { background-position: 63px -19px; }
+  60% { background-position: -21px -77px; } 80% { background-position: 88px 54px; } 100% { background-position: 0 0; }
+}
+
+/* ---------- Stepped motion only ---------- */
+@keyframes winOpen { 0% { transform: scale(0.92); opacity: 0.4; } 100% { transform: none; opacity: 1; } }
+@keyframes blink { 50% { opacity: 0; } }
+@keyframes bob2 { 50% { transform: translateY(-4px); } }
+@keyframes shake2 { 25% { transform: translate(-5px, 0); } 50% { transform: translate(5px, 0); } 75% { transform: translate(-3px, 0); } }
+.blink { animation: blink 1s steps(1) infinite; }
+.bob { animation: bob2 1.2s steps(1) infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .fx-grain, .blink, .bob, .win { animation: none !important; }
+}

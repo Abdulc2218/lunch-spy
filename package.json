@@ -1,0 +1,16 @@
+{
+  "name": "lunch-spy",
+  "version": "1.0.0",
+  "description": "A phone-first social deduction party game set in a school cafeteria.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "socket.io": "^4.7.5"
+  }
+}

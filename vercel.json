@@ -1,0 +1,6 @@
+{
+  "framework": null,
+  "installCommand": "echo \"no install needed for the static site\"",
+  "buildCommand": "mkdir -p public/shared && cp shared/map.js public/shared/map.js",
+  "outputDirectory": "public"
+}

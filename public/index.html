@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#000080">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Lunch Spy</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕶️</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Pixelify+Sans:wght@400;500;700&family=Silkscreen:wght@400;700&family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="ui.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- ================= HOME: the desktop ================= -->
+  <section id="home" class="screen active desktop">
+    <div class="desk-dither"></div>
+    <div class="stickers" id="homeStickers"></div>
+    <div class="desk-scroll" id="homeDesk">
+      <nav class="desk-icons" aria-label="Desktop">
+        <button class="dicon" data-act="newgame" data-icon="🍱" type="button"><span>New Game</span></button>
+        <button class="dicon" data-act="readme" data-icon="📄" type="button"><span>README.TXT</span></button>
+        <button class="dicon" data-act="settings" data-icon="🖥️" type="button"><span>Settings</span></button>
+        <button class="dicon" data-act="bin" data-icon="🗑️" type="button"><span>Recycle Bin</span></button>
+      </nav>
+
+      <div class="stack home-stack">
+        <div class="win sm deco-nokia" data-win data-drag>
+          <div class="win-title"><span class="ico" data-icon="📟"></span><span class="tt">SPY_RADAR.EXE</span>
+            <span class="win-ctrls"><button class="mn" type="button" aria-label="Minimize"></button><button class="x" type="button" aria-label="Close"></button></span></div>
+          <div class="nk-mini">
+            <canvas id="radarBean" class="pixel"></canvas>
+            <div class="nk-mini-txt">
+              <div class="nk-line">RADAR<span class="blink">_</span></div>
+              <div class="marquee"><span>1 SPY AT LUNCH ▸ TRUST NO ONE ▸ WATCH THE SOUP ▸ 1 SPY AT LUNCH ▸ TRUST NO ONE ▸ WATCH THE SOUP ▸</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="win main-win" id="mainWin" data-win data-drag>
+          <div class="win-title"><span class="ico" data-icon="🕶️"></span><span class="tt">LUNCH_SPY.EXE</span>
+            <span class="win-ctrls"><button class="mn" type="button" aria-label="Minimize"></button><button class="mx" type="button" aria-label="Maximize"></button><button class="x" type="button" aria-label="Close"></button></span></div>
+          <div class="win-menu" aria-hidden="true"><span>File</span><span>Game</span><span>Help</span></div>
+          <div class="win-body">
+            <div class="hero">
+              <div class="hero-art lcd"><canvas id="logoBean"></canvas></div>
+              <div class="hero-txt">
+                <span class="pill xl chroma">Lunch <i>Spy</i></span>
+                <p class="cap">Trust no one at lunch</p>
+                <span class="pill sm">3–10 players · on your phones</span>
+              </div>
+            </div>
+
+            <label class="label" for="nameIn"><u>N</u>ame</label>
+            <input id="nameIn" class="field" maxlength="12" placeholder="Type your name" autocomplete="off" enterkeyhint="done">
+            <span class="label">Pick a <u>c</u>olor</span>
+            <div id="colorPick" class="swatches"></div>
+            <button id="createBtn" class="btn95 big wide default" type="button">▶ New Game</button>
+
+            <fieldset class="group">
+              <legend>Join a friend</legend>
+              <div class="join-row">
+                <input id="codeIn" class="field code" maxlength="4" placeholder="CODE" autocomplete="off" autocapitalize="characters" enterkeyhint="go" aria-label="Room code">
+                <button id="joinBtn" class="btn95" type="button">Join</button>
+              </div>
+            </fieldset>
+            <p id="homeErr" class="err" hidden></p>
+          </div>
+          <div class="win-status"><span class="bevel-in" id="homeStatus">Ready</span><span class="bevel-in">v1.0</span></div>
+        </div>
+
+        <div class="win readme-win" id="readmeWin" data-win data-drag>
+          <div class="win-title"><span class="ico" data-icon="📄"></span><span class="tt">README.TXT - Notepad</span>
+            <span class="win-ctrls"><button class="mn" type="button" aria-label="Minimize"></button><button class="mx" type="button" aria-label="Maximize"></button><button class="x" type="button" aria-label="Close"></button></span></div>
+          <div class="win-menu" aria-hidden="true"><span>File</span><span>Edit</span><span>Search</span><span>Help</span></div>
+          <div class="notepad sunken">HOW TO PLAY LUNCH SPY
+=====================
+
+* STUDENTS walk around the cafeteria
+  and finish their lunch list.
+
+* SPIES do secret missions. A mission
+  looks exactly like a normal task.
+
+* After a mission, everyone gets an
+  alert a few seconds later. Who was
+  nearby?
+
+* Chat bubbles only reach people
+  CLOSE to you. Walk over to talk.
+
+* Ring the LUNCH BELL in the middle
+  of the hall to call a meeting.
+  You can ring it once.
+
+* Most votes = DETENTION. You become
+  a ghost and can still do tasks.
+
+* Students win: catch every spy or
+  finish all tasks.
+* Spies win: finish their missions.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="taskbar">
+      <button class="btn95 start-btn" id="startMenuBtn" type="button"><span class="start-ico" data-icon="🕶️"></span><b>Start</b></button>
+      <span class="btn95 task-chip on">LUNCH_SPY.EXE</span>
+      <div class="tray bevel-in"><span class="tray-ico" data-icon="🔊"></span><span data-clock></span></div>
+    </div>
+  </section>
+
+  <!-- ================= LOBBY ================= -->
+  <section id="lobby" class="screen desktop">
+    <div class="desk-dither"></div>
+    <div class="stickers" id="lobbyStickers"></div>
+    <div class="desk-scroll">
+      <div class="stack lobby-stack">
+        <div class="win lobby-win" id="lobbyWin" data-win data-drag>
+          <div class="win-title"><span class="ico" data-icon="🍽️"></span><span class="tt" id="lobbyTitle">LOBBY</span>
+            <span class="win-ctrls"><button class="mn" type="button" aria-label="Minimize"></button><button class="x" type="button" aria-label="Leave"></button></span></div>
+          <div class="win-body">
+            <div class="lobby-top">
+              <button id="codeBox" class="code-lcd lcd" type="button">
+                <span class="cap">Room code · tap to share</span>
+                <span class="lcd-num big" data-ghost="8888"><span id="roomCode">----</span></span>
+              </button>
+              <div class="lcd lcd-cell count-cell">
+                <span class="cap">Players</span>
+                <span class="lcd-num" data-ghost="88"><span id="pCount">1</span></span>
+                <span class="cap">of 10</span>
+              </div>
+            </div>
+            <div class="listview players-list" id="playerList"></div>
+            <span class="label">Your <u>c</u>olor</span>
+            <div id="lobbyColors" class="swatches small"></div>
+            <p id="lobbyHint" class="hint"></p>
+            <div class="lobby-btns">
+              <button id="leaveBtn" class="btn95" type="button">← Leave</button>
+              <button id="startBtn" class="btn95 big default grow" type="button">▶ Start game</button>
+            </div>
+          </div>
+          <div class="win-status"><span class="bevel-in" id="lobbyStatus">Waiting for players...</span><span class="bevel-in" data-clock></span></div>
+        </div>
+
+        <div class="win sm lb-win" data-win data-drag>
+          <div class="win-title"><span class="ico" data-icon="🏆"></span><span class="tt">HIGH_SCORES.DB</span>
+            <span class="win-ctrls"><button class="mn" type="button" aria-label="Minimize"></button></span></div>
+          <div class="win-body"><div class="listview lb" id="lbList"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="taskbar">
+      <button class="btn95 start-btn" data-start type="button"><span class="start-ico" data-icon="🕶️"></span><b>Start</b></button>
+      <span class="btn95 task-chip on">LOBBY.EXE</span>
+      <div class="tray bevel-in"><span class="tray-ico" data-icon="🔊"></span><span data-clock></span></div>
+    </div>
+  </section>
+
+  <!-- ================= GAME ================= -->
+  <section id="game" class="screen">
+    <canvas id="cv"></canvas>
+    <canvas id="cv2" aria-hidden="true"></canvas>
+
+    <div class="hud-top">
+      <div id="taskCard" class="win sm task-win" data-win>
+        <div class="win-title"><span class="ico" data-icon="📝"></span><span class="tt" id="taskTitle">LUNCH_LIST.TXT</span><span class="tr" id="taskCount">0/5</span>
+          <span class="win-ctrls"><button class="mn" type="button" aria-label="Minimize"></button></span></div>
+        <ul id="taskList" class="task-list sunken"></ul>
+      </div>
+
+      <div class="hud-right">
+        <div class="win sm stat-win" data-win>
+          <div class="win-title"><span class="ico" data-icon="📟"></span><span class="tt">STATUS</span><span id="roleBadge" class="role-tag"></span></div>
+          <div class="stat-body">
+            <div class="lcd-row">
+              <div class="lcd lcd-cell"><span class="cap">Tasks</span><span class="lcd-num" data-ghost="88"><span id="hudTasks">00</span></span></div>
+              <div class="lcd lcd-cell"><span class="cap">Bell</span><span class="lcd-num" data-ghost="88"><span id="hudBell">--</span></span></div>
+              <div class="lcd lcd-cell"><span class="cap">Alive</span><span class="lcd-num" data-ghost="88"><span id="hudAlive">00</span></span></div>
+            </div>
+            <div class="bar-row"><span class="cap" id="barLabel">Class</span><div class="seg-bar ghost"><i id="classBar"></i></div></div>
+            <div class="next-box lcd"><span class="cap">Next</span><span id="nextIcon" class="next-ico"></span><span id="nextText" class="next-txt">--</span></div>
+          </div>
+        </div>
+        <div class="hud-btns">
+          <button id="gearBtn" class="btn95 icon" type="button" aria-label="Settings"></button>
+          <button id="mapBtn" class="btn95 icon" type="button" aria-label="Map"></button>
+        </div>
+      </div>
+    </div>
+
+    <div id="feed" class="feed"></div>
+    <div id="ghostTag" class="ghost-tag tooltip95 hidden">👻 You're a ghost. Only ghosts can hear you.</div>
+
+    <div class="hud-bottom">
+      <div class="hud-left">
+        <button id="chatBtn" class="btn95 icon chat-btn" type="button" aria-label="Chat"></button>
+        <div id="dpad" class="dpad" aria-label="D-pad">
+          <span class="dpad-btn up" data-d="up"></span>
+          <span class="dpad-btn left" data-d="left"></span>
+          <span class="dpad-mid bevel-in"></span>
+          <span class="dpad-btn right" data-d="right"></span>
+          <span class="dpad-btn down" data-d="down"></span>
+        </div>
+      </div>
+      <div class="actions">
+        <button id="bellBtn" class="btn95 act bell hidden" type="button"><span class="ico" id="bellIco"></span><small id="bellLabel">RING</small></button>
+        <button id="useBtn" class="btn95 act use" type="button" disabled>
+          <span class="ico" id="useIcon"></span><small id="useLabel">USE</small>
+          <span class="use-prog"><i id="useProg"></i></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="statusbar">
+      <span id="useHint" class="bevel-in sb-hint">DRAG TO MOVE · TAP USE</span>
+      <span class="bevel-in sb-clock" data-clock></span>
+    </div>
+
+    <div id="joy" class="joy hidden"><div class="knob"></div></div>
+  </section>
+
+  <!-- ================= OVERLAYS ================= -->
+  <div id="reveal" class="overlay hidden reveal-ov">
+    <div class="phone">
+      <div class="phone-brand cap">LunchFone 3310</div>
+      <div class="phone-screen">
+        <div class="nk-status"><span>▮▮▮▮▯</span><span data-clock></span><span>▮▮▮▯</span></div>
+        <p class="nk-small">YOU ARE A...</p>
+        <canvas id="revealBean"></canvas>
+        <h2 id="revealRole">STUDENT</h2>
+        <p id="revealText" class="nk-text"></p>
+        <div class="nk-soft"><span>Menu</span><span class="blink">OK</span></div>
+      </div>
+      <div class="phone-keys" aria-hidden="true"><span class="sk"></span><span class="nav"></span><span class="sk"></span></div>
+      <div class="phone-pad" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    </div>
+    <p class="tap-hint cap">Tap anywhere to start</p>
+  </div>
+
+  <div id="meeting" class="overlay hidden">
+    <div class="win meet-win" data-win>
+      <div class="win-title"><span class="ico" data-icon="🔔"></span><span class="tt">EMERGENCY_MEETING.EXE</span></div>
+      <div class="meet-body">
+        <div class="m-head">
+          <div class="m-title"><span class="pill">Lunch <i>meeting!</i></span><small id="mCaller" class="cap"></small></div>
+          <div class="lcd lcd-cell timer-cell"><span class="cap">Time</span><span class="lcd-num" data-ghost="88"><span id="mTimer">90</span></span></div>
+        </div>
+        <div id="mGrid" class="m-grid"></div>
+        <div class="m-actions">
+          <button id="skipBtn" class="btn95" type="button">Skip vote</button>
+          <button id="voteBtn" class="btn95 default" type="button" disabled>Vote</button>
+        </div>
+        <div class="m-chat">
+          <div id="mLog" class="log listview"></div>
+          <div id="mChips" class="chips"></div>
+          <form id="mForm" class="chat-form" autocomplete="off">
+            <input id="mInput" class="field" maxlength="100" placeholder="Say something..." enterkeyhint="send">
+            <button class="btn95" type="submit">Send</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="result" class="overlay hidden">
+    <div class="win dlg-win" data-win>
+      <div class="win-title"><span class="ico" data-icon="🚪"></span><span class="tt">DETENTION.EXE</span></div>
+      <div class="result-inner">
+        <div class="result-stage lcd"><canvas id="resultBean"></canvas></div>
+        <h2 id="resultTitle"></h2>
+        <div class="progress95"><i id="resultProg"></i></div>
+        <p id="resultSub"></p>
+        <p id="resultLeft" class="cap"></p>
+      </div>
+    </div>
+  </div>
+
+  <div id="over" class="overlay hidden">
+    <div class="over-stack">
+      <div class="win dlg-win over-win" data-win>
+        <div class="win-title"><span class="ico" data-icon="⚠️"></span><span class="tt" id="overWinTitle">LUNCH.EXE</span>
+          <span class="win-ctrls"><button class="x" type="button" aria-label="Close" id="overX"></button></span></div>
+        <div class="dialog"><span id="overIcon"></span><div><h2 id="overTitle"></h2><p id="overReason"></p></div></div>
+        <p class="cap center">The spies were</p>
+        <div id="overSpies" class="spy-row"></div>
+        <div class="dialog-btns">
+          <button id="againBtn" class="btn95 default" type="button">OK</button>
+          <button id="overLeave" class="btn95" type="button">Cancel</button>
+        </div>
+        <p id="overWait" class="hint">Waiting for the host to press OK...</p>
+      </div>
+      <div class="win sm lb-win" data-win>
+        <div class="win-title"><span class="ico" data-icon="🏆"></span><span class="tt">HIGH_SCORES.DB</span></div>
+        <div class="win-body"><div class="listview lb" id="overLb"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="mapView" class="overlay hidden">
+    <div class="win map-win" data-win id="mapWin">
+      <div class="win-title"><span class="ico" data-icon="🗺️"></span><span class="tt">MAP.BMP - Paint</span>
+        <span class="win-ctrls"><button class="x" type="button" aria-label="Close" id="mapClose"></button></span></div>
+      <div class="map-body bevel-in"><canvas id="mapCv"></canvas></div>
+      <div class="win-status"><span class="bevel-in">Yellow ring = task · Red ring = mission · Tap to close</span></div>
+    </div>
+  </div>
+
+  <div id="chatSheet" class="sheet hidden">
+    <div class="win sheet-win" data-win>
+      <div class="win-title"><span class="ico" data-icon="💬"></span><span class="tt">SAY.EXE · people nearby hear you</span>
+        <span class="win-ctrls"><button class="x" type="button" aria-label="Close" id="sheetClose"></button></span></div>
+      <div class="win-body">
+        <div id="qChips" class="chips"></div>
+        <form id="qForm" class="chat-form" autocomplete="off">
+          <input id="qInput" class="field" maxlength="100" placeholder="Type a message..." enterkeyhint="send">
+          <button class="btn95" type="submit">Send</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="settings" class="overlay hidden">
+    <div class="win set-win" data-win id="setWin">
+      <div class="win-title"><span class="ico" data-icon="🖥️"></span><span class="tt">Display Properties</span>
+        <span class="win-ctrls"><button class="x" type="button" aria-label="Close"></button></span></div>
+      <div class="tabs" role="tablist"><button class="tab on" type="button" data-tab="main" role="tab">Settings</button><button class="tab" type="button" data-tab="fx" role="tab">Effects</button></div>
+      <div class="set-body">
+        <fieldset class="group" data-pane="main"><legend>Theme</legend>
+          <label class="radio"><input type="radio" name="theme" value="classic"> Classic 95</label>
+          <label class="radio"><input type="radio" name="theme" value="nokia"> Green LCD</label>
+          <label class="radio"><input type="radio" name="theme" value="bitmap"> Bitmap · orange on black</label>
+        </fieldset>
+        <fieldset class="group" data-pane="fx" hidden><legend>Effects</legend>
+          <label class="check"><input type="checkbox" name="crt"> CRT scanlines and vignette</label>
+          <label class="check"><input type="checkbox" name="grain"> Film grain</label>
+          <label class="check"><input type="checkbox" name="pixel"> Extra chunky pixels in game</label>
+        </fieldset>
+        <fieldset class="group" data-pane="main"><legend>Controls</legend>
+          <label class="radio"><input type="radio" name="controls" value="joy"> Floating joystick</label>
+          <label class="radio"><input type="radio" name="controls" value="dpad"> D-pad</label>
+          <label class="check"><input type="checkbox" name="vibrate"> Vibration</label>
+        </fieldset>
+        <fieldset class="group" data-pane="main"><legend>Sound</legend>
+          <div class="slider"><small>VOL</small><input type="range" class="range95" name="volume" min="0" max="100" step="5" aria-label="Volume"><span class="lcd vol-lcd"><span id="volOut">70</span></span></div>
+        </fieldset>
+      </div>
+      <div class="dialog-btns">
+        <button class="btn95 default" id="setOk" type="button">OK</button>
+        <button class="btn95" id="setCancel" type="button">Cancel</button>
+        <button class="btn95" id="setApply" type="button">Apply</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="alertBanner" class="alert-banner hidden"></div>
+  <div id="toast" class="toast tooltip95 hidden"></div>
+
+  <div id="conn" class="nosignal hidden">
+    <div class="bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="bars2"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="ns-noise"></div>
+    <div class="ns-box"><span class="pill dark xlish">No <i>Signal</i></span><p class="cap blink">Reconnecting to the cafeteria</p></div>
+  </div>
+
+  <div id="boot" class="boot desktop">
+    <div class="desk-dither"></div>
+    <div class="win dlg-win" data-win>
+      <div class="win-title"><span class="ico" data-icon="📡"></span><span class="tt">Connecting...</span></div>
+      <div class="dialog"><span id="bootIco"></span><div><p>Connecting to the cafeteria...</p><p class="cap" id="bootStep">Loading lunch trays</p></div></div>
+      <div class="boot-bar"><div class="progress95"><i id="bootProg"></i></div></div>
+    </div>
+  </div>
+
+  <div id="shutdown" class="shutdown hidden"><p>It's now safe to turn off<br>your lunch.</p><span class="cap blink">tap to turn it back on</span></div>
+
+  <div class="fx fx-grain"></div>
+  <div class="fx fx-scan"></div>
+  <div class="fx fx-vig"></div>
+</div>
+
+<script src="config.js"></script>
+<script>
+  // Load the socket client from the game server (same origin locally, Render when hosted on Vercel)
+  document.write('<script src="' + (window.LUNCH_SPY_SERVER || '').replace(/\/$/, '') + '/socket.io/socket.io.js"><\/script>');
+</script>
+<script src="shared/map.js"></script>
+<script src="retro.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
